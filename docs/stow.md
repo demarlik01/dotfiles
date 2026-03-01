@@ -54,10 +54,10 @@ stow -R --no-folding nvim
 ### 전체 패키지 한번에 적용
 
 ```bash
-stow --no-folding */
+stow --no-folding ghostty nvim zsh starship
 ```
 
-dotfiles 안의 모든 패키지를 한번에 적용한다.
+패키지 이름을 나열해서 한번에 적용한다. `docs/` 같은 비패키지 폴더가 섞이지 않도록 `*/` 대신 이름을 명시하는 것이 안전하다.
 
 ## 패키지 추가하기
 

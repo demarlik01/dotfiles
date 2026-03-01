@@ -4,7 +4,7 @@
 ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
 # 모듈 설치/업데이트
 if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZIM_CONFIG_FILE:-${ZDOTDIR:-${HOME}}/.zimrc} ]]; then
-  source /opt/homebrew/opt/zimfw/share/zimfw.zsh init
+  source "$(brew --prefix zimfw)/share/zimfw.zsh" init
 fi
 source ${ZIM_HOME}/init.zsh
 
