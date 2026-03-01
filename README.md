@@ -1,6 +1,6 @@
 # dotfiles
 
-macOS 개발 환경 설정 모음집. [GNU Stow](https://www.gnu.org/software/stow/)로 심볼릭 링크를 관리합니다. ([stow 사용법](docs/stow.md) | [단축키 모음](docs/shortcuts.md))
+macOS 개발 환경 설정 모음집. [GNU Stow](https://www.gnu.org/software/stow/)로 심볼릭 링크를 관리합니다. ([stow 사용법](docs/stow.md) | [단축키 모음](docs/shortcuts.md) | [mise 사용법](docs/mise.md))
 
 ## 포함된 설정
 
@@ -26,7 +26,8 @@ cd ~/dotfiles
 4. Ghostty 설치
 5. Neovim 설치
 6. Zimfw, Starship 설치
-7. stow로 설정 파일 심볼릭 링크 생성
+7. mise 설치 (런타임 버전 관리)
+8. stow로 설정 파일 심볼릭 링크 생성
 
 ## 개별 패키지 적용/해제
 
@@ -72,6 +73,7 @@ stow -D ghostty
 │       └── starship.toml     # 프롬프트 테마 설정
 ├── docs/
 │   ├── stow.md              # stow 사용법
-│   └── shortcuts.md         # neovim 단축키 모음
+│   ├── shortcuts.md         # neovim 단축키 모음
+│   └── mise.md              # mise 사용법
 └── README.md
 ```

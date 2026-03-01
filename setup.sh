@@ -54,7 +54,13 @@ brew install --formula zimfw
 brew install starship
 
 # ----------------------------------------
-# 7. Stow packages
+# 7. mise (runtime version manager)
+# ----------------------------------------
+echo ">> Installing mise..."
+brew install mise
+
+# ----------------------------------------
+# 8. Stow packages
 # ----------------------------------------
 DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "$DOTFILES_DIR"

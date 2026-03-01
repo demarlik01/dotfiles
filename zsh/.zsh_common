@@ -22,6 +22,11 @@ alias zshrc="nvim ~/.zshrc"
 alias update-all="brew update && zimfw update && nvim --headless '+Lazy update' +qa && echo '=== All updated! ==='"
 
 # ----------------------------------------
+# mise (runtime version manager)
+# ----------------------------------------
+eval "$(mise activate zsh)"
+
+# ----------------------------------------
 # starship prompt
 # ----------------------------------------
 eval "$(starship init zsh)"
