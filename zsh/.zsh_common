@@ -1,0 +1,27 @@
+# ----------------------------------------
+# zimfw
+# ----------------------------------------
+ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
+# 모듈 설치/업데이트
+if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZIM_CONFIG_FILE:-${ZDOTDIR:-${HOME}}/.zimrc} ]]; then
+  source /opt/homebrew/opt/zimfw/share/zimfw.zsh init
+fi
+source ${ZIM_HOME}/init.zsh
+
+# ----------------------------------------
+# 환경변수
+# ----------------------------------------
+export EDITOR="nvim"
+
+# ----------------------------------------
+# alias
+# ----------------------------------------
+alias vim="nvim"
+alias dot="cd ~/dotfiles"
+alias zshrc="nvim ~/.zshrc"
+alias update-all="brew update && zimfw update && nvim --headless '+Lazy update' +qa && echo '=== All updated! ==='"
+
+# ----------------------------------------
+# starship prompt
+# ----------------------------------------
+eval "$(starship init zsh)"
