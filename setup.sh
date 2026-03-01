@@ -27,8 +27,8 @@ brew install --cask font-hack-nerd-font font-d2coding-nerd-font
 # ----------------------------------------
 # 3. GNU Stow
 # ----------------------------------------
-echo ">> Installing stow, tree, ripgrep, fd, tig..."
-brew install stow tree ripgrep fd tig
+echo ">> Installing stow, tree, ripgrep, fd, tig, gh..."
+brew install stow tree ripgrep fd tig gh
 
 # ----------------------------------------
 # 4. Ghostty
