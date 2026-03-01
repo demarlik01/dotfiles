@@ -28,6 +28,7 @@ cd ~/dotfiles
 6. Zimfw, Starship 설치
 7. mise 설치 (런타임 버전 관리)
 8. stow로 설정 파일 심볼릭 링크 생성
+9. `~/.zshrc` 생성 (없으면) 및 `source ~/.zsh_common` 추가
 
 ## 개별 패키지 적용/해제
 

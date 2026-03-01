@@ -21,8 +21,8 @@ fi
 # ----------------------------------------
 # 2. Nerd Fonts (Hack)
 # ----------------------------------------
-echo ">> Installing Nerd Fonts (Hack)..."
-brew install --cask font-hack-nerd-font
+echo ">> Installing Nerd Fonts (Hack, D2Coding)..."
+brew install --cask font-hack-nerd-font font-d2coding-nerd-font
 
 # ----------------------------------------
 # 3. GNU Stow
@@ -79,7 +79,21 @@ stow -R --no-folding -v zsh
 # starship
 stow -R --no-folding -v starship
 
+# ----------------------------------------
+# 9. ~/.zshrc 설정
+# ----------------------------------------
+ZSHRC_LINE='source ~/.zsh_common'
+if [ ! -f ~/.zshrc ]; then
+  echo ">> Creating ~/.zshrc..."
+  echo "$ZSHRC_LINE" > ~/.zshrc
+elif ! grep -qF "$ZSHRC_LINE" ~/.zshrc; then
+  echo ">> Adding source line to ~/.zshrc..."
+  echo "" >> ~/.zshrc
+  echo "$ZSHRC_LINE" >> ~/.zshrc
+else
+  echo ">> ~/.zshrc already configured"
+fi
+
 echo ""
 echo "=== Done! ==="
-echo "Add 'source ~/.zsh_common' to your ~/.zshrc"
 echo "Restart your terminal to apply changes."
