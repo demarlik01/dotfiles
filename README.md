@@ -10,6 +10,7 @@ macOS 개발 환경 설정 모음집. [GNU Stow](https://www.gnu.org/software/st
 | nvim | Neovim 설정 (lazy.nvim, neo-tree, telescope, treesitter, LSP) | `~/.config/nvim/` |
 | zsh | Zsh 공통 설정 (zimfw, alias) | `~/.zsh_common`, `~/.zimrc` |
 | starship | 프롬프트 테마 | `~/.config/starship.toml` |
+| tmux | 터미널 멀티플렉서 설정 (마우스, Ghostty 연동) | `~/.tmux.conf` |
 
 ## 설치
 
@@ -27,8 +28,9 @@ cd ~/dotfiles
 5. Neovim 설치
 6. Zimfw, Starship 설치
 7. mise 설치 (런타임 버전 관리)
-8. stow로 설정 파일 심볼릭 링크 생성
-9. `~/.zshrc` 생성 (없으면) 및 `source ~/.zsh_common` 추가
+8. tmux 설치
+9. stow로 설정 파일 심볼릭 링크 생성
+10. `~/.zshrc` 생성 (없으면) 및 `source ~/.zsh_common` 추가
 
 ## 개별 패키지 적용/해제
 
@@ -72,6 +74,8 @@ stow -D ghostty
 ├── starship/
 │   └── .config/
 │       └── starship.toml     # 프롬프트 테마 설정
+├── tmux/
+│   └── .tmux.conf            # tmux 설정 (마우스, Ghostty 연동)
 ├── docs/
 │   ├── stow.md              # stow 사용법
 │   ├── shortcuts.md         # neovim 단축키 모음

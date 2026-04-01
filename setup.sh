@@ -60,8 +60,15 @@ echo ">> Installing mise..."
 brew install mise
 
 # ----------------------------------------
-# 8. Stow packages
+# 8. tmux
 # ----------------------------------------
+echo ">> Installing tmux..."
+brew install tmux
+
+# ----------------------------------------
+# 9. Stow packages
+# ----------------------------------------
+
 DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "$DOTFILES_DIR"
 
@@ -79,8 +86,11 @@ stow -R --no-folding -v zsh
 # starship
 stow -R --no-folding -v starship
 
+# tmux
+stow -R --no-folding -v tmux
+
 # ----------------------------------------
-# 9. ~/.zshrc 설정
+# 10. ~/.zshrc 설정
 # ----------------------------------------
 ZSHRC_LINE='source ~/.zsh_common'
 if [ ! -f ~/.zshrc ]; then
