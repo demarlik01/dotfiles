@@ -63,6 +63,8 @@
 | `gd` | 정의로 이동 (Go to Definition) |
 | `gr` | 참조 목록 (References) |
 | `K` | 문서 팝업 (Hover) |
+| `Ctrl+o` | 이전 위치로 돌아가기 (점프 후 복귀) |
+| `Ctrl+i` | 다시 앞으로 이동 |
 
 ### 편집
 
