@@ -64,5 +64,4 @@ font-size = 15
 
 # short-cuts
 keybind = ctrl+d=new_split:right
-keybind = shift+enter=text:\n
 
