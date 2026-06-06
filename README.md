@@ -11,6 +11,7 @@ macOS 개발 환경 설정 모음집. [GNU Stow](https://www.gnu.org/software/st
 | zsh | Zsh 공통 설정 (zimfw, alias) | `~/.zsh_common`, `~/.zimrc` |
 | starship | 프롬프트 테마 | `~/.config/starship.toml` |
 | tmux | 터미널 멀티플렉서 설정 (마우스, Ghostty 연동) | `~/.tmux.conf` |
+| ai-plugins | Claude Code / Codex 플러그인 선언 + 설치 스크립트 | (CLI 설정에 직접 설치) |
 
 ## 설치
 
@@ -31,6 +32,27 @@ cd ~/dotfiles
 8. tmux 설치
 9. stow로 설정 파일 심볼릭 링크 생성
 10. `~/.zshrc` 생성 (없으면) 및 `source ~/.zsh_common` 추가
+
+> AI 플러그인(Claude Code / Codex)은 `setup.sh`에 포함되지 않습니다. 필요할 때 수동으로 실행하세요 (아래 참고).
+
+## AI 플러그인 (Claude Code / Codex)
+
+`ai-plugins/`의 선언 파일을 기준으로 플러그인을 idempotent하게 설치합니다.
+`setup.sh`와는 분리되어 있으니 **필요할 때 수동으로** 실행하세요.
+설정 파일(`~/.claude/settings.json`, `~/.codex/config.toml`)은 도구가 직접 갱신하고
+머신 종속 절대경로가 섞여 있어 stow 대상에서 제외했고, 대신 "설치할 목록"만 선언합니다.
+빌트인 마켓플레이스(`claude-plugins-official`, `openai-curated`)만 사용합니다.
+
+| 파일 | 내용 |
+|------|------|
+| `claude-plugins.txt` / `codex-plugins.txt` | 설치할 플러그인 (`name@marketplace`) |
+
+```bash
+# claude/codex CLI가 설치된 상태에서 실행
+./ai-plugins/install.sh
+```
+
+새 플러그인을 추가하려면 해당 `*-plugins.txt`에 한 줄 추가 후 위 스크립트 재실행.
 
 ## 개별 패키지 적용/해제
 

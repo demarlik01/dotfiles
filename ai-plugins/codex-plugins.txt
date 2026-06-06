@@ -1,0 +1,4 @@
+# Codex plugins to install (one per line): name@marketplace
+# 빌트인 마켓플레이스 openai-curated 는 항상 사용 가능 (별도 add 불필요)
+# browser/chrome/computer-use/documents 등 번들 플러그인은 Codex가 자동 관리하므로 적지 않음
+superpowers@openai-curated
