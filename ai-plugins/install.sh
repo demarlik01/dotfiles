@@ -2,11 +2,9 @@
 # Claude Code / Codex 플러그인을 선언 파일 기준으로 idempotent하게 설치한다.
 #
 # 선언 파일 (이 디렉토리):
+#   claude-marketplaces.txt                   Claude 서드파티 마켓플레이스 (name source)
 #   claude-plugins.txt / codex-plugins.txt   설치할 플러그인 (name@marketplace)
 #
-# 빌트인 마켓플레이스(claude-plugins-official, openai-curated 등)만 사용하므로
-# 마켓플레이스 추가는 하지 않는다. 서드파티 마켓플레이스가 필요해지면
-# `claude plugin marketplace add` / `codex plugin marketplace add` 를 여기에 추가하면 된다.
 # 이 스크립트는 단독 실행도 되고, setup.sh 끝에서 호출되어도 된다.
 set -uo pipefail
 
@@ -24,6 +22,23 @@ read_entries() {
 # ----------------------------------------
 if command -v claude &>/dev/null; then
   echo ">> Claude Code 플러그인 설정 중..."
+
+  configured_claude_marketplaces="$(claude plugin marketplace list --json 2>/dev/null || true)"
+  while IFS=' ' read -r marketplace_name marketplace_source extra; do
+    [ -z "$marketplace_name" ] && continue
+    if [ -z "$marketplace_source" ] || [ -n "$extra" ]; then
+      echo "   ! 잘못된 마켓플레이스 선언: $marketplace_name $marketplace_source $extra"
+      continue
+    fi
+    if printf '%s\n' "$configured_claude_marketplaces" | grep -qF "\"name\": \"$marketplace_name\""; then
+      echo "   = 이미 추가된 마켓플레이스: $marketplace_name"
+    else
+      echo "   + 마켓플레이스 추가: $marketplace_name ($marketplace_source)"
+      claude plugin marketplace add "$marketplace_source" \
+        || echo "     마켓플레이스 추가 실패: $marketplace_name"
+    fi
+  done < <(read_entries "$DIR/claude-marketplaces.txt")
+
   installed_claude="$(claude plugin list 2>/dev/null)"
   while IFS= read -r plugin; do
     [ -z "$plugin" ] && continue
