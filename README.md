@@ -28,7 +28,7 @@ cd ~/dotfiles
 4. Ghostty 설치
 5. Neovim 설치
 6. Zimfw, Starship 설치
-7. mise 설치 (런타임 버전 관리)
+7. mise 설치 및 Node.js LTS 글로벌 버전 설정 (Mason의 npm 기반 LSP용)
 8. tmux 설치
 9. stow로 설정 파일 심볼릭 링크 생성
 10. `~/.zshrc` 생성 (없으면) 및 `source ~/.zsh_common` 추가

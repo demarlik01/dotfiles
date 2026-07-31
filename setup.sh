@@ -59,6 +59,10 @@ brew install starship
 echo ">> Installing mise..."
 brew install mise
 
+# Mason uses npm to install pyright and several web LSP servers.
+echo ">> Installing Node.js LTS with mise..."
+mise use --global --yes node@lts
+
 # ----------------------------------------
 # 8. tmux
 # ----------------------------------------
