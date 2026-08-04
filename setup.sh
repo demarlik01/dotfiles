@@ -1,6 +1,10 @@
 #!/bin/bash
 set -e
 
+# Homebrew 6부터 설치 확인(ask mode)이 기본이라 brew install마다 y/n을 물어본다.
+# 모든 brew 명령을 비대화형으로 실행 (brew install -y 와 동일, 구버전 brew에서도 무해).
+export HOMEBREW_NO_ASK=1
+
 echo "=== dotfiles setup for macOS ==="
 
 # ----------------------------------------
@@ -8,7 +12,10 @@ echo "=== dotfiles setup for macOS ==="
 # ----------------------------------------
 if ! command -v brew &>/dev/null; then
   echo ">> Installing Homebrew..."
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  # NONINTERACTIVE=1: RETURN 확인 없이 설치 (공식 무인 설치 방식).
+  # 이 모드에서는 installer가 sudo에게 비밀번호를 물어볼 수 없으므로 미리 1회 캐싱해둔다.
+  sudo -v
+  NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
   # Apple Silicon path setup
   if [[ $(uname -m) == "arm64" ]]; then

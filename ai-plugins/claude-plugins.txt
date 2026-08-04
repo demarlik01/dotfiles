@@ -1,6 +1,6 @@
 # Claude Code plugins to install (one per line): name@marketplace
 # 빌트인 마켓플레이스 claude-plugins-official 은 항상 사용 가능 (별도 add 불필요)
-# 새 플러그인을 추가하려면 이 파일에 한 줄 추가하고 setup.sh(또는 ai-plugins/install.sh) 재실행
+# 새 플러그인을 추가하려면 이 파일에 한 줄 추가하고 ai-plugins/install.sh 재실행
 superpowers@claude-plugins-official
 frontend-design@claude-plugins-official
 playwright@claude-plugins-official

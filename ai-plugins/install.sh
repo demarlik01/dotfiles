@@ -5,7 +5,7 @@
 #   claude-marketplaces.txt                   Claude 서드파티 마켓플레이스 (name source)
 #   claude-plugins.txt / codex-plugins.txt   설치할 플러그인 (name@marketplace)
 #
-# 이 스크립트는 단독 실행도 되고, setup.sh 끝에서 호출되어도 된다.
+# setup.sh와는 분리되어 있다 — claude/codex CLI를 설치한 뒤 필요할 때 직접 실행한다.
 set -uo pipefail
 
 DIR="$(cd "$(dirname "$0")" && pwd)"
