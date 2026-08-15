@@ -54,6 +54,31 @@ else
 fi
 
 # ----------------------------------------
+# 공용 에이전트 CLI 도구
+# ----------------------------------------
+# 브라우저 자동화는 MCP 서버 대신 CLI로 제공한다 — 어느 에이전트든 셸로 호출할 수
+# 있고, 안 쓰는 세션의 컨텍스트를 차지하지 않는다.
+if command -v npm &>/dev/null; then
+  if command -v playwright-cli &>/dev/null; then
+    echo ">> 이미 설치됨: @playwright/cli"
+  else
+    echo ">> @playwright/cli 설치 중..."
+    npm install -g @playwright/cli@latest || echo "   설치 실패: @playwright/cli"
+  fi
+
+  # 번들 스킬(사용법 문서)을 ~/.claude/skills/playwright-cli 에 복사한다.
+  # 스킬 내용이 CLI 버전에 종속되므로 매번 실행해 덮어써서 동기화한다.
+  if command -v playwright-cli &>/dev/null; then
+    playwright-cli install --skills --global || echo "   스킬 설치 실패: playwright-cli"
+    # Codex는 ~/.codex/skills 를 읽으므로 같은 스킬을 심볼릭 링크로 공유
+    mkdir -p ~/.codex/skills
+    ln -sfn ~/.claude/skills/playwright-cli ~/.codex/skills/playwright-cli
+  fi
+else
+  echo ">> npm 없음 — @playwright/cli 건너뜀"
+fi
+
+# ----------------------------------------
 # Codex
 # ----------------------------------------
 if command -v codex &>/dev/null; then

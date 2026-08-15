@@ -3,7 +3,6 @@
 # 새 플러그인을 추가하려면 이 파일에 한 줄 추가하고 ai-plugins/install.sh 재실행
 superpowers@claude-plugins-official
 frontend-design@claude-plugins-official
-playwright@claude-plugins-official
 typescript-lsp@claude-plugins-official
 codex@openai-codex
 eli5@claude-community
