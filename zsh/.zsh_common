@@ -22,10 +22,12 @@ alias zshrc="nvim ~/.zshrc"
 alias update-all="brew update && zimfw update && nvim --headless '+Lazy update' +qa && echo '=== All updated! ==='"
 alias no-sleep="caffeinate"
 
-# mac mini로 로컬 포트 터널 (기본 18789): mini-tunnel [port]
+# mac mini SSH 접속 + 로컬 포트 터널 (기본 18789): mini-tunnel [port]
+# 셸을 쓰는 동안 localhost:<port> → mini:<port> 터널이 유지되고, exit 하면 같이 닫힌다
 mini-tunnel() {
   local port="${1:-18789}"
-  ssh -N -o ExitOnForwardFailure=yes -o ServerAliveInterval=30 \
+  echo "tunnel: localhost:${port} → hyoseoks-mac-mini:${port}"
+  ssh -o ExitOnForwardFailure=yes -o ServerAliveInterval=30 \
     -L "${port}:127.0.0.1:${port}" hyo@hyoseoks-mac-mini
 }
 
