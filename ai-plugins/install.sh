@@ -1,9 +1,10 @@
 #!/bin/bash
-# Claude Code / Codex 플러그인을 선언 파일 기준으로 idempotent하게 설치한다.
+# Claude Code / Codex 플러그인과 로컬 Codex 스킬을 idempotent하게 설치한다.
 #
 # 선언 파일 (이 디렉토리):
 #   claude-marketplaces.txt                   Claude 서드파티 마켓플레이스 (name source)
 #   claude-plugins.txt / codex-plugins.txt   설치할 플러그인 (name@marketplace)
+#   skills/codex/<name>/SKILL.md             Codex에 연결할 로컬 스킬
 #
 # setup.sh와는 분리되어 있다 — claude/codex CLI를 설치한 뒤 필요할 때 직접 실행한다.
 set -uo pipefail
@@ -70,9 +71,9 @@ if command -v npm &>/dev/null; then
   # 스킬 내용이 CLI 버전에 종속되므로 매번 실행해 덮어써서 동기화한다.
   if command -v playwright-cli &>/dev/null; then
     playwright-cli install --skills --global || echo "   스킬 설치 실패: playwright-cli"
-    # Codex는 ~/.codex/skills 를 읽으므로 같은 스킬을 심볼릭 링크로 공유
-    mkdir -p ~/.codex/skills
-    ln -sfn ~/.claude/skills/playwright-cli ~/.codex/skills/playwright-cli
+    # Codex의 공식 사용자 스킬 경로에 같은 스킬을 심볼릭 링크로 공유
+    mkdir -p ~/.agents/skills
+    ln -sfn ~/.claude/skills/playwright-cli ~/.agents/skills/playwright-cli
   fi
 else
   echo ">> npm 없음 — @playwright/cli 건너뜀"
@@ -82,7 +83,27 @@ fi
 # Codex
 # ----------------------------------------
 if command -v codex &>/dev/null; then
-  echo ">> Codex 플러그인 설정 중..."
+  echo ">> Codex 스킬/플러그인 설정 중..."
+
+  # 이 저장소에서 관리하는 Codex 스킬을 공식 사용자 스킬 경로에 연결한다.
+  codex_skills_dir="$HOME/.agents/skills"
+  mkdir -p "$codex_skills_dir"
+  for skill_source in "$DIR"/skills/codex/*; do
+    [ -d "$skill_source" ] || continue
+    skill_name="$(basename "$skill_source")"
+    skill_target="$codex_skills_dir/$skill_name"
+
+    if [ -L "$skill_target" ]; then
+      ln -sfn "$skill_source" "$skill_target"
+      echo "   = 스킬 연결 갱신: $skill_name"
+    elif [ -e "$skill_target" ]; then
+      echo "   ! 기존 경로가 있어 스킬 연결 건너뜀: $skill_target"
+    else
+      ln -s "$skill_source" "$skill_target"
+      echo "   + 스킬 연결: $skill_name"
+    fi
+  done
+
   installed_codex="$(codex plugin list 2>/dev/null)"
   while IFS= read -r plugin; do
     [ -z "$plugin" ] && continue

@@ -11,7 +11,7 @@ macOS 개발 환경 설정 모음집. [GNU Stow](https://www.gnu.org/software/st
 | zsh | Zsh 공통 설정 (zimfw, alias) | `~/.zsh_common`, `~/.zimrc` |
 | starship | 프롬프트 테마 | `~/.config/starship.toml` |
 | tmux | 터미널 멀티플렉서 설정 (마우스, Ghostty 연동) | `~/.tmux.conf` |
-| ai-plugins | Claude Code / Codex 플러그인 선언 + 설치 스크립트 | (CLI 설정에 직접 설치) |
+| ai-plugins | Claude Code / Codex 플러그인 선언 + Codex 스킬 + 설치 스크립트 | (CLI 설정에 직접 설치) |
 
 ## 설치
 
@@ -37,7 +37,8 @@ cd ~/dotfiles
 
 ## AI 플러그인 (Claude Code / Codex)
 
-`ai-plugins/`의 선언 파일을 기준으로 플러그인을 idempotent하게 설치합니다.
+`ai-plugins/`의 선언 파일을 기준으로 플러그인을 idempotent하게 설치하고,
+저장소에서 관리하는 Codex 스킬을 `~/.agents/skills/`에 심볼릭 링크로 연결합니다.
 `setup.sh`와는 분리되어 있으니 **필요할 때 수동으로** 실행하세요.
 설정 파일(`~/.claude/settings.json`, `~/.codex/config.toml`)은 도구가 직접 갱신하고
 머신 종속 절대경로가 섞여 있어 stow 대상에서 제외했고, 대신 "설치할 목록"만 선언합니다.
@@ -47,6 +48,7 @@ cd ~/dotfiles
 |------|------|
 | `claude-marketplaces.txt` | Claude 서드파티 마켓플레이스 (`name source`) |
 | `claude-plugins.txt` / `codex-plugins.txt` | 설치할 플러그인 (`name@marketplace`) |
+| `skills/codex/*/SKILL.md` | Codex에서 사용할 로컬 스킬 |
 
 ```bash
 # claude/codex CLI가 설치된 상태에서 실행
@@ -56,6 +58,9 @@ cd ~/dotfiles
 빌트인 마켓플레이스의 새 플러그인은 해당 `*-plugins.txt`에 한 줄 추가합니다.
 서드파티 Claude 플러그인은 `claude-marketplaces.txt`에 마켓플레이스를 먼저 선언하고
 `claude-plugins.txt`에 플러그인을 추가한 뒤 위 스크립트를 재실행합니다.
+로컬 Codex 스킬은 `ai-plugins/skills/codex/<name>/SKILL.md`에 추가하고 위 스크립트를 재실행합니다.
+스킬 소스는 실행 주체별로 나눈니다. 예를 들어 Codex가 Claude를 호출하는 스킬은
+`skills/codex/`에 둡니다.
 
 ## 개별 패키지 적용/해제
 
