@@ -21,6 +21,10 @@ alias dot="cd ~/dotfiles"
 alias zshrc="nvim ~/.zshrc"
 alias update-all="brew update && zimfw update && nvim --headless '+Lazy update' +qa && echo '=== All updated! ==='"
 alias no-sleep="caffeinate"
+# SSH 세션에서 로그인 키체인 잠금 해제 (GUI 로그인 없이 Keychain이 잠겨
+# Claude Code가 MCP 인증 경고를 띄울 때 사용, 해당 세션 동안만 유효)
+# 원인: https://github.com/anthropics/claude-code/issues/29816 / 우회 확인: issues/9403
+alias unlock-keychain="security unlock-keychain ~/Library/Keychains/login.keychain-db"
 
 # mac mini SSH 접속 + 로컬 포트 터널 (기본 18789): mini-tunnel [port]
 # 셸을 쓰는 동안 localhost:<port> → mini:<port> 터널이 유지되고, exit 하면 같이 닫힌다
