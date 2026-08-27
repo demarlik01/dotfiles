@@ -23,8 +23,8 @@ cd ~/dotfiles
 
 `setup.sh`가 하는 일:
 1. Homebrew 설치 (없으면)
-2. Nerd Fonts (Hack) 설치
-3. GNU Stow, tree, ripgrep, fd, tig 설치
+2. Nerd Fonts (Hack, D2Coding) 설치
+3. GNU Stow, tree, ripgrep, fd, tig, gh 설치
 4. Ghostty 설치
 5. Neovim 설치
 6. Zimfw, Starship 설치
@@ -43,6 +43,9 @@ cd ~/dotfiles
 설정 파일(`~/.claude/settings.json`, `~/.codex/config.toml`)은 도구가 직접 갱신하고
 머신 종속 절대경로가 섞여 있어 stow 대상에서 제외했고, 대신 "설치할 목록"만 선언합니다.
 서드파티 Claude 마켓플레이스도 선언할 수 있으며, 플러그인보다 먼저 추가됩니다.
+또한 브라우저 자동화용 `@playwright/cli`를 npm으로 전역 설치하고, 번들 스킬을
+`~/.claude/skills/playwright-cli`에 설치한 뒤 `~/.agents/skills/`에도 심볼릭 링크로
+공유합니다 (npm이 없으면 건너뜁니다).
 
 | 파일 | 내용 |
 |------|------|
@@ -54,6 +57,9 @@ cd ~/dotfiles
 # claude/codex CLI가 설치된 상태에서 실행
 ./ai-plugins/install.sh
 ```
+
+> `fluent-korean` 플러그인은 설치만으로는 적용되지 않습니다. 설치 후 Claude Code에서
+> `/config` → Output style을 `fluent-korean`으로 변경해야 한국어 지침이 활성화됩니다.
 
 빌트인 마켓플레이스의 새 플러그인은 해당 `*-plugins.txt`에 한 줄 추가합니다.
 서드파티 Claude 플러그인은 `claude-marketplaces.txt`에 마켓플레이스를 먼저 선언하고
@@ -79,6 +85,15 @@ stow -D ghostty
 ```
 ~/dotfiles/
 ├── setup.sh              # 초기 셋업 스크립트
+├── ai-plugins/
+│   ├── install.sh                # Claude/Codex 플러그인·스킬 설치 스크립트
+│   ├── claude-marketplaces.txt   # Claude 서드파티 마켓플레이스 선언
+│   ├── claude-plugins.txt        # 설치할 Claude 플러그인 목록
+│   ├── codex-plugins.txt         # 설치할 Codex 플러그인 목록
+│   └── skills/
+│       └── codex/
+│           └── ask-claude/
+│               └── SKILL.md      # Codex 로컬 스킬
 ├── ghostty/
 │   └── .config/
 │       └── ghostty/
@@ -91,6 +106,7 @@ stow -D ghostty
 │           │   ├── config/
 │           │   │   └── options.lua  # 기본 옵션
 │           │   └── plugins/
+│           │       ├── colorscheme.lua  # kanagawa-dragon 컬러스킴
 │           │       ├── neo-tree.lua     # 파일 트리
 │           │       ├── telescope.lua    # 퍼지 파인더
 │           │       ├── treesitter.lua   # 구문 하이라이팅
