@@ -50,6 +50,10 @@ if command -v claude &>/dev/null; then
       claude plugin install "$plugin" --scope user || echo "     설치 실패: $plugin"
     fi
   done < <(read_entries "$DIR/claude-plugins.txt")
+
+  if read_entries "$DIR/claude-plugins.txt" | grep -q '^fluent-korean@'; then
+    echo "   ※ fluent-korean은 설치만으로 적용되지 않습니다 — Claude Code에서 /config → Output style → fluent-korean 선택"
+  fi
 else
   echo ">> claude CLI 없음 — Claude 플러그인 건너뜀"
 fi

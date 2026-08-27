@@ -2,3 +2,4 @@
 # name은 마켓플레이스 manifest의 이름, source는 `marketplace add`에 전달할 GitHub 저장소/URL/경로
 openai-codex openai/codex-plugin-cc
 claude-community anthropics/claude-plugins-community
+fluent-korean snflkd/fluent-korean

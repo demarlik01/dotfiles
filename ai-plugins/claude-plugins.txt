@@ -6,3 +6,4 @@ frontend-design@claude-plugins-official
 typescript-lsp@claude-plugins-official
 codex@openai-codex
 eli5@claude-community
+fluent-korean@fluent-korean  # 설치 후 /config에서 output style을 fluent-korean으로 변경 필요
