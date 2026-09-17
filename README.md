@@ -7,7 +7,7 @@ macOS 개발 환경 설정 모음집. [GNU Stow](https://www.gnu.org/software/st
 | 패키지 | 설명 | 대상 경로 |
 |--------|------|----------|
 | ghostty | 터미널 에뮬레이터 설정 (테마, 폰트, 키바인드) | `~/.config/ghostty/config` |
-| nvim | Neovim 설정 (lazy.nvim, neo-tree, telescope, treesitter, LSP) | `~/.config/nvim/` |
+| nvim | Neovim 설정 (lazy.nvim, neo-tree, telescope, treesitter, LSP, gitsigns) | `~/.config/nvim/` |
 | zsh | Zsh 공통 설정 (zimfw, alias) | `~/.zsh_common`, `~/.zimrc` |
 | starship | 프롬프트 테마 | `~/.config/starship.toml` |
 | tmux | 터미널 멀티플렉서 설정 (마우스, Ghostty 연동) | `~/.tmux.conf` |
@@ -107,6 +107,7 @@ stow -D ghostty
 │           │   │   └── options.lua  # 기본 옵션
 │           │   └── plugins/
 │           │       ├── colorscheme.lua  # kanagawa-dragon 컬러스킴
+│           │       ├── gitsigns.lua     # git 변경 거터 표시 + hunk 이동/스테이지
 │           │       ├── neo-tree.lua     # 파일 트리
 │           │       ├── telescope.lua    # 퍼지 파인더
 │           │       ├── treesitter.lua   # 구문 하이라이팅

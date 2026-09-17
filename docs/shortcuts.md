@@ -86,6 +86,28 @@
 | `]d` | 다음 에러로 이동 |
 | `Space + d` | 현재 줄 에러 상세 보기 |
 
+## Gitsigns (git 변경 표시)
+
+커밋 안 된 추가/수정/삭제 줄이 왼쪽 signcolumn에 표시된다 (IntelliJ 거터와 동일).
+**hunk**는 연속으로 바뀐 줄 덩어리 하나 = 거터의 블록 하나.
+
+### hunk 이동
+
+| 키 | 동작 |
+|---|------|
+| `]c` | 다음 hunk로 이동 |
+| `[c` | 이전 hunk로 이동 |
+
+### hunk 위에서
+
+| 키 | 동작 |
+|---|------|
+| `Space + hp` | 원본 vs 현재 diff 팝업으로 보기 |
+| `Space + hs` | 이 hunk만 stage (`git add -p` 한 덩어리) |
+| `Space + hr` | 이 hunk만 원래대로 되돌리기 |
+
+전형적인 흐름: `]c`로 이동 → `Space + hp`로 확인 → `Space + hs` 또는 `Space + hr` → 다시 `]c`.
+
 ## Vim 기본
 
 ### 이동

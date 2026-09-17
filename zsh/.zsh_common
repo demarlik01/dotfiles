@@ -36,6 +36,19 @@ mini-tunnel() {
 }
 
 # ----------------------------------------
+# 터미널 입력 모드 리셋
+# ----------------------------------------
+# SSH가 끊기는 등 원격 풀스크린 앱(tmux, nvim)이 종료 시퀀스를 못 보내면
+# 마우스 추적/kitty 키보드 프로토콜이 켜진 채 남아 프롬프트에 `35;165;21M`
+# 같은 파편이 찍힌다. 프롬프트마다 꺼 준다 (이미 꺼져 있으면 아무 효과 없음).
+_reset_terminal_input_modes() {
+  [[ -t 1 ]] || return 0
+  printf '\e[?1000l\e[?1002l\e[?1003l\e[?1006l\e[?1015l\e[<u\e[=0;1u\e[?2004l'
+}
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd _reset_terminal_input_modes
+
+# ----------------------------------------
 # mise (runtime version manager)
 # ----------------------------------------
 eval "$(mise activate zsh)"
