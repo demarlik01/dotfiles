@@ -54,6 +54,34 @@ if command -v claude &>/dev/null; then
   if read_entries "$DIR/claude-plugins.txt" | grep -q '^fluent-korean@'; then
     echo "   ※ fluent-korean은 설치만으로 적용되지 않습니다 — Claude Code에서 /config → Output style → fluent-korean 선택"
   fi
+
+  # status line: 스크립트는 저장소 파일을 심볼릭 링크로 연결하고,
+  # settings.json에는 statusLine 키만 병합한다 (나머지 설정은 건드리지 않음).
+  statusline_target="$HOME/.claude/statusline-command.sh"
+  mkdir -p "$HOME/.claude"
+  if [ -e "$statusline_target" ] && [ ! -L "$statusline_target" ]; then
+    mv "$statusline_target" "$statusline_target.bak"
+    echo "   ! 기존 status line 스크립트 백업: $statusline_target.bak"
+  fi
+  ln -sfn "$DIR/claude/statusline.sh" "$statusline_target"
+  echo "   = status line 스크립트 연결: $statusline_target"
+
+  if command -v jq &>/dev/null; then
+    settings="$HOME/.claude/settings.json"
+    statusline='{"type":"command","command":"sh ~/.claude/statusline-command.sh"}'
+    [ -f "$settings" ] || echo '{}' > "$settings"
+    if jq -e --argjson s "$statusline" '.statusLine == $s' "$settings" >/dev/null 2>&1; then
+      echo "   = statusLine 이미 설정됨"
+    elif jq --argjson s "$statusline" '.statusLine = $s' "$settings" > "$settings.tmp"; then
+      mv "$settings.tmp" "$settings"
+      echo "   + statusLine 설정: $settings"
+    else
+      rm -f "$settings.tmp"
+      echo "   ! settings.json 갱신 실패 — statusLine 직접 설정 필요"
+    fi
+  else
+    echo "   ! jq 없음 — statusLine 설정 건너뜀 (status line 스크립트도 jq 필요: brew install jq)"
+  fi
 else
   echo ">> claude CLI 없음 — Claude 플러그인 건너뜀"
 fi
