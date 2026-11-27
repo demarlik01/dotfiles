@@ -46,12 +46,15 @@ cd ~/dotfiles
 또한 브라우저 자동화용 `@playwright/cli`를 npm으로 전역 설치하고, 번들 스킬을
 `~/.claude/skills/playwright-cli`에 설치한 뒤 `~/.agents/skills/`에도 심볼릭 링크로
 공유합니다 (npm이 없으면 건너뜁니다).
+Claude Code status line 스크립트는 `~/.claude/statusline-command.sh`에 심볼릭 링크로 연결하고,
+`settings.json`에는 `jq`로 `statusLine` 키만 병합합니다 (기존 파일이 있으면 `.bak`으로 백업).
 
 | 파일 | 내용 |
 |------|------|
 | `claude-marketplaces.txt` | Claude 서드파티 마켓플레이스 (`name source`) |
 | `claude-plugins.txt` / `codex-plugins.txt` | 설치할 플러그인 (`name@marketplace`) |
 | `skills/codex/*/SKILL.md` | Codex에서 사용할 로컬 스킬 |
+| `claude/statusline.sh` | Claude Code status line (경로·브랜치·버전 / 모델·컨텍스트·경과시간·사용량 한도) |
 
 ```bash
 # claude/codex CLI가 설치된 상태에서 실행
@@ -90,6 +93,8 @@ stow -D ghostty
 │   ├── claude-marketplaces.txt   # Claude 서드파티 마켓플레이스 선언
 │   ├── claude-plugins.txt        # 설치할 Claude 플러그인 목록
 │   ├── codex-plugins.txt         # 설치할 Codex 플러그인 목록
+│   ├── claude/
+│   │   └── statusline.sh         # Claude Code status line 스크립트
 │   └── skills/
 │       └── codex/
 │           └── ask-claude/
